@@ -5,9 +5,14 @@ import os
 
 load_dotenv()
 
-
+# Si prende la porta dal .env
 PORT = os.getenv('PORT', '5000')
+
+
 app = create_app()
 
+
+# Inizializzazione dell'app
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=PORT)
+    app.run(host='0.0.0.0', port=PORT) 
+    # (host='0.0.0.0', port=PORT, debug=True) per il debug in caso di problemi
