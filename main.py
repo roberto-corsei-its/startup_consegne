@@ -1,6 +1,5 @@
 from dotenv import load_dotenv
 from src.app import create_app
-from handlers.product_handler import read_product
 import os
 
 load_dotenv()
