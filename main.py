@@ -1,5 +1,6 @@
 from dotenv import load_dotenv
 from src.app import create_app
+from data.db_connection import get_connection
 import os
 
 # Caricamento delle variabili d'ambiente
@@ -12,6 +13,8 @@ PORT = os.getenv('PORT', '5000')
 
 
 app = create_app()
+
+get_connection()
 
 
 # Inizializzazione dell'app
