@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 from src.app import create_app
-from data.db_connection import get_connection
+from data.scripts import get_connection
 import os
 
 # Caricamento delle variabili d'ambiente
