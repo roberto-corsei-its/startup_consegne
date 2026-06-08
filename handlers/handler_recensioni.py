@@ -17,6 +17,6 @@ df = pd.read_csv(REVIEW)
 def inserimento_recensione(id, rider_id, customer_name, rating, comment):
     # Rinominato get_connection per usufruire della funzione .cursor
     with get_connection() as conn:
-    with conn.cursor() as cur:
-    cur.execute("INSERT INTO reviews (id, rider_id, customer_name, rating, comment) VALUES (%s,%s,%s,%s,%s)", (id, rider_id, customer_name, rating, comment))
+     with conn.cursor() as cur:
+      cur.execute("INSERT INTO reviews (id, rider_id, customer_name, rating, comment) VALUES (%s,%s,%s,%s,%s)", (id, rider_id, customer_name, rating, comment))
     # Inserimento dei dati nel DB attraverso una query INSERT.           
