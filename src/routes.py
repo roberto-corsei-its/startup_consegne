@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from handlers.handler_recensioni import inserimento_recensione
+from handlers.handler_recensioni import inserimento_recensione, eliminazione_recensione
 from handlers.handler_consegne import visualizzazione_rider, visualizzazione_rider_veicoli
 
 
@@ -18,10 +18,19 @@ def visualizzazione_riders(vehicle=None):
 
 
 
-
 @consegne_bp.route('/recensione', methods=['POST'])
-def aggiungi_recensione(id, rider_id, customer_name, rating, comment):
+def aggiungi_recensione(rider_id, customer_name, rating, comment):
 
 
-    inserimento_recensione(id, rider_id, customer_name, rating, comment)
+    inserimento_recensione(rider_id, customer_name, rating, comment)
     return jsonify({'message':'success'}), 200
+
+
+
+
+@consegne_bp.route('/delete', methods=['DELETE'])
+def cancellazione_recensione(id):
+
+    eliminazione_recensione(id)
+    return jsonify({'message':'success'}), 200
+    
