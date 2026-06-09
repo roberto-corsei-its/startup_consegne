@@ -19,11 +19,23 @@ def visualizzazione_riders(vehicle=None):
 
 
 @consegne_bp.route('/recensione', methods=['POST'])
-def aggiungi_recensione(rider_id, customer_name, rating, comment):
-
-
-    inserimento_recensione(rider_id, customer_name, rating, comment)
-    return jsonify({'message':'success'}), 200
+def aggiungi_recensione():
+    try:
+        # Ora prendi i dati dal body della richiesta di Postman
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({"error": "Nessun dato JSON ricevuto nel body"}), 400
+        rider_id = data.get('rider_id')
+        customer_name = data.get('customer_name')
+        rating = data.get('rating')
+        comment = data.get('comment')
+        return jsonify({'message':'success'}), 200
+        
+        inserimento_recensione(rider_id, customer_name, rating, comment)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
 
 
 
