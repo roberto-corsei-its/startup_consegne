@@ -28,7 +28,7 @@ def aggiungi_recensione(rider_id, customer_name, rating, comment):
 
 
 
-@consegne_bp.route('/delete', methods=['DELETE'])
+@consegne_bp.route('/delete/<id>', methods=['DELETE'])
 def cancellazione_recensione(id):
 
     eliminazione_recensione(id)
