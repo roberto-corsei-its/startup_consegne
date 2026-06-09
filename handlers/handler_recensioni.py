@@ -13,7 +13,9 @@ def inserimento_recensione(rider_id, customer_name, rating, comment):
 
       query = "INSERT INTO reviews (rider_id, customer_name, rating, comment) VALUES (%s, %s, %s, %s)"
 
-      df = pd.read_sql_query(query, conn, params = [rider_id, customer_name, rating, comment])
+      cur.execute(query, (rider_id, customer_name, rating, comment))
+
+      conn.commit()
 
 #DELETE
 def eliminazione_recensione(id):

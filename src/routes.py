@@ -30,9 +30,10 @@ def aggiungi_recensione():
         customer_name = data.get('customer_name')
         rating = data.get('rating')
         comment = data.get('comment')
+        inserimento_recensione(rider_id, customer_name, rating, comment)
         return jsonify({'message':'success'}), 200
         
-        inserimento_recensione(rider_id, customer_name, rating, comment)
+        
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
