@@ -8,7 +8,8 @@ consegne_bp = Blueprint('consegne', __name__, url_prefix='/consegne')
 
 
 @consegne_bp.route('/riders', methods=['GET'])
-def visualizzazione_riders(vehicle):
+@consegne_bp.route('/riders/<vehicle>', methods=['GET'])
+def visualizzazione_riders(vehicle=None):
     if vehicle:
         return jsonify(visualizzazione_rider_veicoli(vehicle))
     else:

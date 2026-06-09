@@ -1,16 +1,8 @@
 import numpy as np
-import pandas as pd
 from flask import Blueprint, request, jsonify
 import os
 import psycopg
 from data.scripts import get_connection
-
-
-
-REVIEW = os.getenv('REVIEW')
-
-
-df = pd.read_csv(REVIEW)
 
 
 

@@ -4,3 +4,4 @@ python-dotenv==1.2.2
 numpy==2.4.6
 DateTime==6.0
 psycopg-binary==3.3.4
+SQLAlchemy==2.0.50

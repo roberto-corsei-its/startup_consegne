@@ -10,14 +10,14 @@ PASSWORD = os.getenv('PASSWORD')
 
 # Dati da configurare. WIP
 DB_CONFIG = {
-    "dbname": DB_NAME,
-    "user": USER,
-    "password": PASSWORD,
-    "host": "localhost",
-    "port": PORT
+    "dbname": 'startup_consegne',
+    "user": 'postgres',
+    "password": 'Lagaeng02!',
+    "host": "127.0.0.1",
+    "port": '8082'
 }
 
 
 def get_connection():
     # Stabilisce la connessione
-    return psycopg.connect(**DB_CONFIG, row_factory=dict_row)
+    return psycopg.connect(**DB_CONFIG, connect_timeout = 5)
