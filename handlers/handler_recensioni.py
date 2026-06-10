@@ -3,27 +3,38 @@ from flask import Blueprint, request, jsonify
 import os
 import psycopg
 from data.scripts import get_connection
+from src.utils import view_rider, inser_review, elimin_recensione, view_reviews
 
 
 #POST
-def inserimento_recensione(rider_id, customer_name, rating, comment):
-    
-    with get_connection() as conn:
-     with conn.cursor() as cur:
-
-      query = "INSERT INTO reviews (rider_id, customer_name, rating, comment) VALUES (%s, %s, %s, %s)"
-
-      cur.execute(query, (rider_id, customer_name, rating, comment))
-
-      conn.commit()
+def inserimento_recensione(rider_id:int, customer_name:str, rating:int, comment:str):
+    try:
+       lista_rider = view_rider()
+       if rider_id not in [rider[1] for rider in lista_rider]:
+          return jsonify({"Error:":"Il rider selezionato non esiste, inserisci un id valido."})
+       else:
+        inser_review(rider_id,customer_name,rating,comment)
+        return jsonify({"Message:":"Success"}), 200
+    except ValueError:
+        return jsonify({"Error:":"I dati inseriti non sono validi, assicurati di inserire un numero intero per rider_id e rating."}), 400
+    except Exception as e:
+        return jsonify({"Error:":str(e)}), 500
+          
 
 #DELETE
-def eliminazione_recensione(id):
+def eliminazione_recensione(id:int):
     
-    with get_connection() as conn:
-     with conn.cursor() as cur:
+    try:
+       riders = view_rider()
+       reviews = view_reviews()
+       if rider_id not in [rider[0] for rider in riders] and rider_id not in [review[1] for review in reviews]:
+          elimin_recensione(id)
+          return jsonify({"Message:":"Recensione eliminata con successo."}), 200
+       else:
+            return jsonify({"Error:":"La recensione selezionata non esiste, inserisci un id valido."}), 400
+    except ValueError:
+        return jsonify({"Error:":"I dati inseriti non sono validi, assicurati di inserire un numero intero per id."}), 400
+    except Exception as e:
+        return jsonify({"Error:":str(e)}), 500
 
-      query = "DELETE * FROM reviews WHERE id = %s"
-
-      df = pd.read_sql_query(query, conn, params = [id])
            
