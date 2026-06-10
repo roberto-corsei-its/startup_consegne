@@ -69,3 +69,11 @@ def aggiornamento_recensione(id:int, comment:str):
         return jsonify({"Error:":"I dati inseriti non sono validi, assicurati di inserire un numero intero per id."})
     except Exception as e:
         return jsonify({"Error:":str(e)}), 500
+    
+
+    
+def visualizzazione_recensioni):
+    try:
+        return view_reviews()
+    except Exception as e:
+        return jsonify({"Error:":str(e)}), 500
