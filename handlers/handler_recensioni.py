@@ -3,11 +3,7 @@ from flask import Blueprint, request, jsonify
 import os
 import psycopg
 from data.scripts import get_connection
-<<<<<<< HEAD
-from src.utils import view_rider, inser_review, elimin_recensione, view_reviews, update_comment
-=======
 from src.utils import view_rider, inser_review, elimin_recensione, view_reviews, media_recensioni
->>>>>>> 54677033966dcaeb8a596f7dca80149719b36061
 
 
 #POST
