@@ -3,7 +3,7 @@ from flask import Blueprint, request, jsonify
 import os
 import psycopg
 from data.scripts import get_connection
-from src.utils import view_rider, inser_review, elimin_recensione, view_reviews, media_recensioni
+from src.utils import view_rider, inser_review, elimin_recensione, view_reviews, media_recensioni, update_comment
 
 
 #POST
@@ -72,8 +72,22 @@ def aggiornamento_recensione(id:int, comment:str):
     
 
     
-def visualizzazione_recensioni):
+def visualizzazione_recensioni()):
     try:
         return view_reviews()
+    except Exception as e:
+        return jsonify({"Error:":str(e)}), 500
+
+
+def aggiornamento_commenti(id:int, comment:str):
+    try:
+        reviews = view_reviews()
+        if id not in [review[0] for review in reviews]:
+            
+            return jsonify({'Error:':'Questo id non è presente tra le recensioni.'})
+        else:  
+            return update_comment(id, comment)
+    except ValueError:
+        return jsonify({"Error:":"I dati inseriti non sono validi, assicurati di inserire un numero intero per id."})
     except Exception as e:
         return jsonify({"Error:":str(e)}), 500

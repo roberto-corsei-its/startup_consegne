@@ -57,4 +57,16 @@ def media_reviews(rider_id):
 def visualizzazione_recensioni():
 
     return jsonify(view_reviews())
-    
+
+
+@consegne_bp.route('/update/<id>', methods=['PUT'])
+def aggiornamento_commenti(id):
+    try:
+        data = request.get_json()
+        if not data:
+            return jsonify({"error": "Nessun dato JSON ricevuto nel body"}), 400
+        comment = data.get('comment')
+        update_comment(id, comment)
+        return jsonify({'message':'success'}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500

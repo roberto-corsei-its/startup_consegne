@@ -63,3 +63,14 @@ def media_recensioni(rider_id:int):
       df = pd.read_sql_query(query, conn, params = [rider_id])
 
     return df.to_dict(orient="records")
+
+
+def update_comment(id, comment):
+    with get_connection() as conn:
+     with conn.cursor() as cur:
+
+      query = "UPDATE reviews SET comment = %s WHERE id = %s"
+
+      cur.execute(query, (comment, id))
+
+      conn.commit()
