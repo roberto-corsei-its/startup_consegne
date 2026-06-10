@@ -53,3 +53,13 @@ def elimin_recensione(id):
       query = "DELETE * FROM reviews WHERE id = %s"
 
       df = pd.read_sql_query(query, conn, params = [id])
+
+def media_recensioni(rider_id:int):
+    with get_connection() as conn:
+     with conn.cursor() as cur:
+
+      query = "SELECT AVG(rating) FROM reviews WHERE rider_id = %s"
+
+      df = pd.read_sql_query(query, conn, params = [rider_id])
+
+    return df.to_dict(orient="records")
