@@ -53,3 +53,12 @@ def elimin_recensione(id):
       query = "DELETE * FROM reviews WHERE id = %s"
 
       df = pd.read_sql_query(query, conn, params = [id])
+
+
+def update_comment(id, comment):
+
+    with get_connection() as conn:
+     with conn.cursor() as cur:
+       query = "UPDATE review SET comment = '%s' WHERE id = %s"
+
+       cur.execute(query, (comment, id))
