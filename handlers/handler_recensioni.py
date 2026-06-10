@@ -54,21 +54,6 @@ def media_recens(rider_id:int):
     except Exception as e:
         return jsonify({"Error:":str(e)}), 500
 
-           
-#AGGIORNAMENTO
-def aggiornamento_recensione(id:int, comment:str):
-
-    try:
-        reviews = view_reviews()
-        if id not in [review[0] for review in reviews]:
-            
-            return jsonify({'Error:':'Questo id non è presente tra le recensioni.'})
-        else:  
-            return update_comment(id, comment)
-    except ValueError:
-        return jsonify({"Error:":"I dati inseriti non sono validi, assicurati di inserire un numero intero per id."})
-    except Exception as e:
-        return jsonify({"Error:":str(e)}), 500
     
 
     
