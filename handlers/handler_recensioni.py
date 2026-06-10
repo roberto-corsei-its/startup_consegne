@@ -35,7 +35,12 @@ def eliminazione_recensione(rider_id:int):
     except ValueError:
         return jsonify({"Error:":"I dati inseriti non sono validi, assicurati di inserire un numero intero per id."}), 400
     except Exception as e:
-        return jsonify({"Error:":str(e)}), 500
+        return jsonify({"Error:":str(e)}), 
+
+
+def media_recens(rider_id:int):
+
+    return media_recensioni()
 
            
 #AGGIORNAMENTO

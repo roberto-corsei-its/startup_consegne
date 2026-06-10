@@ -54,11 +54,12 @@ def elimin_recensione(id):
 
       df = pd.read_sql_query(query, conn, params = [id])
 
-
-def update_comment(id, comment):
-
+def media_recensioni(rider_id:int):
     with get_connection() as conn:
      with conn.cursor() as cur:
-       query = "UPDATE review SET comment = '%s' WHERE id = %s"
 
-       cur.execute(query, (comment, id))
+      query = "SELECT AVG(rating) FROM reviews WHERE rider_id = %s"
+
+      df = pd.read_sql_query(query, conn, params = [rider_id])
+
+    return df.to_dict(orient="records")

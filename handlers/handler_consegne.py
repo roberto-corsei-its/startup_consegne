@@ -11,7 +11,7 @@ from src.utils import view_rider
 
 def visualizzazione_rider():
     try:
-        return view_riders()
+        return view_rider()
     except Exception as e:
         return jsonify({"Error:":str(e)}), 500
 
