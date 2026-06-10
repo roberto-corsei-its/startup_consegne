@@ -43,7 +43,16 @@ def eliminazione_recensione(rider_id:int):
 
 def media_recens(rider_id:int):
 
-    return media_recensioni()
+    try:
+        riders = view_rider()
+        if rider_id not in [rider[0] for rider in riders]:
+            return jsonify({'Error:':'Questo id rider non è presente'})
+        else:
+            return media_recensioni()
+    except ValueError:
+        return jsonify({"Error:":"I dati inseriti non sono validi, assicurati di inserire un numero intero per id."})
+    except Exception as e:
+        return jsonify({"Error:":str(e)}), 500
 
            
 #AGGIORNAMENTO
