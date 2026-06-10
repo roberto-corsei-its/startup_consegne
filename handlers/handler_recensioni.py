@@ -57,7 +57,7 @@ def media_recens(rider_id:int):
     
 
     
-def visualizzazione_recensioni()):
+def visualizzazione_recensioni():
     try:
         return view_reviews()
     except Exception as e:
