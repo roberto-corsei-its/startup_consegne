@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 from src.app import create_app
-from data.scripts import get_connection, create_table_db
+from data.scripts import get_connection#, create_table_db
 import os
 
 # Caricamento delle variabili d'ambiente
@@ -16,7 +16,7 @@ app = create_app()
 
 
 get_connection()
-create_table_db()
+#create_table_db()
 
 # Inizializzazione dell'app
 if __name__ == "__main__":

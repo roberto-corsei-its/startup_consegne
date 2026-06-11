@@ -63,11 +63,6 @@ def media_reviews(rider_id):
     return jsonify(media_recens(rider_id))
 
 
-@consegne_bp.route('/reviews', methods=['GET'])
-def visualizzazione_recensioni():
-
-    return jsonify(view_reviews())
-
 
 @consegne_bp.route('/update/<id>', methods=['PUT'])
 def aggiornamento_commenti(id):
