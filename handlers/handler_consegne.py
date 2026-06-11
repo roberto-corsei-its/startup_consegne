@@ -22,7 +22,7 @@ def visualizzazione_rider_veicoli(vehicle: str):
       with get_connection() as conn:
        with conn.cursor() as cur:
 
-        query = "SELECT * FROM riders WHERE vehicle = %s"
+        query = "SELECT * FROM riders WHERE LOWER(vehicle) = LOWER(%s)"
 
         df = pd.read_sql_query(query, conn, params=[vehicle])
 
