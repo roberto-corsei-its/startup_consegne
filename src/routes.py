@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from handlers.handler_recensioni import inserimento_recensione, eliminazione_recensione, media_recens, view_reviews
+from handlers.handler_recensioni import inserimento_recensione, eliminazione_recensione, media_recens, view_reviews, update_comment
 from handlers.handler_consegne import visualizzazione_rider, visualizzazione_rider_veicoli
 
 
@@ -14,11 +14,16 @@ def visualizzazione_riders(vehicle=None):
         return jsonify(visualizzazione_rider_veicoli(vehicle))
     else:
         return jsonify(visualizzazione_rider())
-    
+
+@consegne_bp.route('/recensioni', methods=['GET'])
+def visualizzazione_recensioni():
+    try:
+        return jsonify(view_reviews())
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500  
 
 
-
-@consegne_bp.route('/recensione', methods=['POST'])
+@consegne_bp.route('/agg-recensione', methods=['POST'])
 def aggiungi_recensione():
     try:
         # Ora prendi i dati dal body della richiesta di Postman
