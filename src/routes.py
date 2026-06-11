@@ -30,8 +30,13 @@ def aggiungi_recensione():
         customer_name = data.get('customer_name')
         rating = data.get('rating')
         comment = data.get('comment')
-        inserimento_recensione(rider_id, customer_name, rating, comment)
-        return jsonify({'message':'success'}), 200
+        if  not all([rider_id, customer_name, rating, comment]):
+            return jsonify({"error": "Tutti i campi (rider_id, customer_name, rating, comment) sono obbligatori"}), 400
+        elif rider_id <= 0 or rating < 1 or rating > 5:
+            return jsonify({"error": "rider_id deve essere un intero positivo e rating deve essere compreso tra 1 e 5"}), 400
+        else:
+            inserimento_recensione(rider_id, customer_name, rating, comment)
+            return jsonify({'message':'success'}), 200
         
         
     except Exception as e:
