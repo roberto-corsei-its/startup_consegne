@@ -13,14 +13,14 @@ def riders():
 @consegne_bp.route('/riders/<vehicle>', methods=['GET'])
 def visualizzazione_riders(vehicle=None):
     if vehicle:
-        return jsonify(visualizzazione_rider_veicoli(vehicle))
+        return visualizzazione_rider_veicoli(vehicle)
     else:
-        return jsonify(visualizzazione_rider())
+        return visualizzazione_rider()
 
 @consegne_bp.route('/recensioni', methods=['GET'])
 def visualizzazione_recensioni():
     try:
-        return jsonify(view_reviews())
+        return view_reviews()
     except Exception as e:
         return jsonify({"error": str(e)}), 500  
 
@@ -62,7 +62,7 @@ def cancellazione_recensione(id):
 
 @consegne_bp.route('/media/<rider_id>', methods=['GET'])
 def media_reviews(rider_id):
-    return jsonify(media_recens(rider_id))
+    return media_recens(rider_id)
 
 
 
