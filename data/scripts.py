@@ -43,7 +43,7 @@ def get_connection():
 #            customer_name varchar(50) not null,
 #            rating integer not null,
 #            comment varchar(400) not null,
-#            FOREIGN KEY (rider_id) references riders(id),
+#            FOREIGN KEY (rider_id) references riders(id) ON DELETE CASCADE ON UPDATE CASCADE,
 #            PRIMARY KEY(id))
 #
 #        """)
