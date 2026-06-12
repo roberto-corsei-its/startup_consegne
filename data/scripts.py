@@ -25,7 +25,7 @@ def create_table_db():
      with conn.cursor() as cur:
         # Creazione tabella riders
         cur.execute("""
-                CREATE TABLE riders(
+                CREATE TABLE IF NOT EXISTS riders(
                 id serial PRIMARY KEY,
                 name varchar(50) not null,
                 vehicle varchar(50) not null,
@@ -34,7 +34,7 @@ def create_table_db():
     
         # Creazione tabella reviews
         cur.execute("""
-            CREATE TABLE reviews(
+            CREATE TABLE IF NOT EXISTS reviews(
             id SERIAL,
             rider_id integer not null ,
             customer_name varchar(50) not null,
