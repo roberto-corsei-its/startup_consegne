@@ -13,13 +13,13 @@ PORT = os.getenv('PORT', '5000')
 
 
 app = create_app()
-
-
-get_connection()
-create_table_db()
-
 # Inizializzazione dell'app
 if __name__ == "__main__":
 
     app.run(host='0.0.0.0', port=PORT, debug=True) 
     # (host='0.0.0.0', port=PORT, debug=True) per il debug in caso di problemi
+
+get_connection()
+create_table_db()
+
+
