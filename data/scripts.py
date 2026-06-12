@@ -14,12 +14,14 @@ DB_CONFIG = {
 }
 
 
-
+# Funzione di connessione al database, che restituisce un oggetto connessione usato per le query
 def get_connection():
     # Stabilisce la connessione
     return psycopg.connect(**DB_CONFIG, connect_timeout = 5)
 
 
+
+# Creazione delle tabelle con controllo IF NOT EXISTS, per evitare problemi nel caso le tabelle non siano presenti
 def create_table_db():
     with get_connection() as conn:
      with conn.cursor() as cur:
@@ -31,8 +33,7 @@ def create_table_db():
                 vehicle varchar(50) not null,
                 total_deliveries integer not null)
             """)
-    
-        # Creazione tabella reviews
+        
         cur.execute("""
             CREATE TABLE IF NOT EXISTS reviews(
             id SERIAL,

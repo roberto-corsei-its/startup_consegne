@@ -65,12 +65,12 @@ def media_recensioni(rider_id:int):
     return df.to_dict(orient="records")
 
 
-def update_comment(id, comment):
+def update_comment(id, comment, nome):
     with get_connection() as conn:
      with conn.cursor() as cur:
 
-      query = "UPDATE reviews SET comment = %s WHERE id = %s"
+      query = "UPDATE reviews SET comment = %s WHERE id = %s AND customer_name = %s"
 
-      cur.execute(query, (comment, id))
+      cur.execute(query, (comment, id, nome))
 
       conn.commit()
