@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Lagaeng02!  # Sincronizzata con l'app
+      POSTGRES_DB: startup_consegne   # Sincronizzato con l'app
+    ports:
+      - "8082:5432" # Porta di Postgres corretta (Interna è SEMPRE 5432)
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    # L'Healthcheck dice a Docker come capire se Postgres è PRONTO a ricevere connessioni
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d startup_consegne"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    container_name: flask_app
+    restart: on-failure
+    ports:
+      - "5000:5000" # Espone l'app Flask all'esterno (porta 5000)
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_NAME: startup_consegne
+      DB_USER: postgres
+      DB_PASSWORD: Lagaeng02!
+      DB_HOST: db
+      DB_PORT: 5432
+      PORT: 5000 # Passa la porta che il tuo main.py si aspetta
+
+volumes:
+  db_data:

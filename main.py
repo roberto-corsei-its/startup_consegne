@@ -6,21 +6,19 @@ import os
 # Caricamento delle variabili d'ambiente
 load_dotenv()
 
-
-
 # Si prende la porta dal .env
-PORT = os.getenv('PORT', '5000')
-
+PORT = int(os.getenv('PORT', '5000')) # È buona pratica convertirla in int
 
 app = create_app()
+
 # Inizializzazione dell'app
 if __name__ == "__main__":
-
-    app.run(host='0.0.0.0', port=PORT, debug=True) 
-    # (host='0.0.0.0', port=PORT, debug=True) per il debug in caso di problemi
-
-get_connection()
-create_table_db()
-populate_tables_db()
-
-
+    # 1. Prima prepari il database
+    print("Inizializzazione del database...")
+    get_connection()
+    create_table_db()
+    populate_tables_db()
+    
+    # 2. Poi avvii il server web
+    print(f"Avvio dell'applicazione sulla porta {PORT}...")
+    app.run(host='0.0.0.0', port=PORT, debug=True)

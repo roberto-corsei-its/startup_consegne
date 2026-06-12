@@ -1,7 +1,7 @@
 import numpy as np
 from flask import Blueprint, request, jsonify
 import os
-import psycopg
+#import psycopg
 from data.scripts import get_connection
 from src.utils import view_rider, inser_review, elimin_recensione, view_reviews, media_recensioni, update_comment
 
