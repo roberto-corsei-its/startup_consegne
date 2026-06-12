@@ -3,19 +3,16 @@ from psycopg.rows import dict_row
 import os
 
 
-DB_NAME = os.getenv('DB_NAME')
-PORT = os.getenv('PORT')
-USER = os.getenv('USER')
-PASSWORD = os.getenv('PASSWORD')
 
-# Dati da configurare. WIP
+# Creazione dizionario con valori di connessione al database presi dal .env
 DB_CONFIG = {
-    "dbname": 'startup_consegne',
-    "user": 'postgres',
-    "password": 'Lagaeng02!',
-    "host": "127.0.0.1",
-    "port": '8082'
+"dbname": os.getenv("DB_NAME"),
+    "user": os.getenv("DB_USER", "postgres"),
+    "password": os.getenv("DB_PASSWORD"),
+    "host": os.getenv("DB_HOST", "localhost"),
+    "port": os.getenv("DB_PORT")
 }
+
 
 
 def get_connection():
@@ -28,7 +25,7 @@ def create_table_db():
      with conn.cursor() as cur:
         # Creazione tabella riders
         cur.execute("""
-                CREATE TABLE riders(
+                CREATE TABLE IF NOT EXISTS riders(
                 id serial PRIMARY KEY,
                 name varchar(50) not null,
                 vehicle varchar(50) not null,
@@ -37,7 +34,7 @@ def create_table_db():
     
         # Creazione tabella reviews
         cur.execute("""
-            CREATE TABLE reviews(
+            CREATE TABLE IF NOT EXISTS reviews(
             id SERIAL,
             rider_id integer not null ,
             customer_name varchar(50) not null,
