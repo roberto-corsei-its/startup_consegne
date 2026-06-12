@@ -29,7 +29,7 @@ def create_table_db():
         cur.execute("""
                 CREATE TABLE IF NOT EXISTS riders(
                 id serial PRIMARY KEY,
-                name varchar(50) not null,
+                name varchar(50) not null UNIQUE,
                 vehicle varchar(50) not null,
                 total_deliveries integer not null)
             """)
@@ -53,7 +53,7 @@ def populate_tables_db():
      with conn.cursor() as cur:
         # Popolamento tabella riders
         cur.execute("""
-            INSERT INTO riders (name, vehicle, total_deliveries) VALUES
+            INSERT INTO riders(name, vehicle, total_deliveries) VALUES
             ('Mario Rossi', 'Bicicletta',120),
             ('Luigi Bianchi', 'Motocicletta',90),
             ('Giulia Verdi', 'Auto',19912)
