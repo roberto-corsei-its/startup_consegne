@@ -48,16 +48,16 @@ def create_table_db():
     
         conn.commit()
 
-    #def populate_tables_db():
-    #    with get_connection() as conn:
-    #     with conn.cursor() as cur:
-    #        # Popolamento tabella riders
-    #        cur.execute("""
-    #            INSERT INTO riders (name, vehicle) VALUES
-    #            ('Mario Rossi', 'Bicicletta'),
-    #            ('Luigi Bianchi', 'Motocicletta'),
-    #            ('Giulia Verdi', 'Auto')
-    #        ON CONFLICT DO NOTHING;
-    #        """)
-    #    
-    #        conn.commit()
+def populate_tables_db():
+    with get_connection() as conn:
+     with conn.cursor() as cur:
+        # Popolamento tabella riders
+        cur.execute("""
+            INSERT INTO riders (name, vehicle, total_deliveries) VALUES
+            ('Mario Rossi', 'Bicicletta',120),
+            ('Luigi Bianchi', 'Motocicletta',90),
+            ('Giulia Verdi', 'Auto',19912)
+        ON CONFLICT DO NOTHING;
+        """)
+    
+    conn.commit()
