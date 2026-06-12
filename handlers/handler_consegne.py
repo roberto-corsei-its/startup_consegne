@@ -10,10 +10,8 @@ from src.utils import view_rider
 
 
 def visualizzazione_rider():
-    #try:
-        return view_rider()
-    #except Exception as e:
-       # return jsonify({"Error:":str(e)}), 500
+    return view_rider()
+
 
 
 def visualizzazione_rider_veicoli(vehicle: str):
