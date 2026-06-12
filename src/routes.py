@@ -7,6 +7,10 @@ from handlers.handler_consegne import visualizzazione_rider, visualizzazione_rid
 consegne_bp = Blueprint('consegne', __name__, url_prefix='/consegne')
 
 
+# Abbiamo usato routes per inserire funzioni che svolgono controlli sulle richieste e gestione di eventuali errori
+#  per poi delegare il core delle funzionalità a funzioni presenti in handlers
+
+
 @consegne_bp.route('/riders', methods=['GET'])
 def riders():
     return jsonify(visualizzazione_rider())

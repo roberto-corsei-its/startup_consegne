@@ -6,6 +6,11 @@ from data.scripts import get_connection
 from src.utils import view_rider, inser_review, elimin_recensione, view_reviews, media_recensioni, update_comment
 
 
+
+# Le funzioni in handlers prendono le richieste controllate da routes, ed effettuano controlli sui dati effettivi
+# Per poi delegare le query in src.utils
+
+
 # Funzione per inserire le recensioni, con appropriati controlli
 def inserimento_recensione(rider_id:int, customer_name:str, rating:int, comment:str):
     try:

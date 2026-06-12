@@ -7,7 +7,7 @@ from data.scripts import get_connection
 import pandas as pd
 
 
-
+# In utils abbiamo aggiunto le funzioni che svolgono il core delle funzionalità (query, insert, ecc...)
 
 def inser_review(rider_id, customer_name, rating, comment):
     
