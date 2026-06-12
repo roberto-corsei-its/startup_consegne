@@ -4,7 +4,6 @@ from flask import Blueprint, request, jsonify
 import os
 import psycopg
 from data.scripts import get_connection
-import pandas as pd
 
 
 # In utils abbiamo aggiunto le funzioni che svolgono il core delle funzionalità (query, insert, ecc...)
