@@ -1,5 +1,0 @@
-Aprire la console, e creare un venv con "py -m venv venv"
-attivare il venv con "venv/Scripts/activate"
-installare i requirements con "pip install -r 'requirements.txt'"
-creare un .env nel quale copiare la struttura dal file "envVuoto"
-I dati del .env sono sul gruppo whatsapp

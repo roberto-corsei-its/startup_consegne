@@ -42,18 +42,20 @@ def view_reviews():
 def elimin_recensione(id):
     with get_connection() as conn:
         with conn.cursor() as cur:
-            controllo = "SELECT id FROM reviews WHERE id = %s"
+            controllo = "SELECT id FROM riders WHERE id = %s"
             cur.execute(controllo, (id,))
             querycontrollo = cur.fetchall()
             
             if querycontrollo: 
-                query = "DELETE FROM reviews WHERE id = %s"
+                query = "DELETE FROM riders WHERE id = %s"
                 cur.execute(query, (id,))
                 conn.commit() 
                 
                 return jsonify({'Message': 'Success'})
             else:
                 return jsonify({'Error': 'ID selezionato non esiste'})
+
+
 
 def update_comment(id, comment):
     with get_connection() as conn:
