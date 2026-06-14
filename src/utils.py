@@ -45,24 +45,20 @@ def view_reviews():
 
 
 def elimin_recensione(id):
-    
     with get_connection() as conn:
-     with conn.cursor() as cur:
-
-      query = "DELETE * FROM reviews WHERE id = %s"
-
-      df = pd.read_sql_query(query, conn, params = [id])
-
-def media_recensioni(rider_id:int):
-    with get_connection() as conn:
-     with conn.cursor() as cur:
-
-      query = "SELECT AVG(rating) FROM reviews GROUP BY rider_id HAVING rider_id = %s"
-
-      df = pd.read_sql_query(query, conn, params = [rider_id])
-
-    return df.to_dict(orient="records")
-
+        with conn.cursor() as cur:
+            controllo = "SELECT id FROM reviews WHERE id = %s"
+            cur.execute(controllo, (id,))
+            querycontrollo = cur.fetchall()
+            
+            if querycontrollo: 
+                query = "DELETE FROM reviews WHERE id = %s"
+                cur.execute(query, (id,))
+                conn.commit() 
+                
+                return jsonify({'Message': 'Success'})
+            else:
+                return jsonify({'Error': 'ID selezionato non esiste'})
 
 def update_comment(id, comment, nome):
     with get_connection() as conn:

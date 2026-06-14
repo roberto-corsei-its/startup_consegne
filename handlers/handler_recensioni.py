@@ -15,16 +15,11 @@ from src.utils import view_rider, inser_review, elimin_recensione, view_reviews,
 def inserimento_recensione(rider_id:int, customer_name:str, rating:int, comment:str):
     try:
         lista_rider = view_rider()
-        if rider_id not in [rider[1] for rider in lista_rider]:
-            if [rating <= 5 and rating >= 1]:
-                inser_review(rider_id,customer_name,rating,comment)
-                return jsonify({"Message:":"Success"}), 200
-            else:
-                return jsonify({'Error':'Il valore di rating da inserire deve essere tra 1 e 5'})
-            
-         
+        if rider_id not in [int(rider['id']) for rider in lista_rider]:
+            return jsonify({'Error:':'Il rider non è presente nella lista rider.'})
         else:
-            return jsonify({"Error:":"Il rider selezionato non esiste, inserisci un id valido."})
+            inser_review(rider_id,customer_name,rating,comment)
+            return jsonify({"Message:":"Success"}), 200            
 
     except ValueError:
         return jsonify({"Error:":"I dati inseriti non sono validi, assicurati di inserire un numero intero per rider_id e rating."}), 400
@@ -33,31 +28,41 @@ def inserimento_recensione(rider_id:int, customer_name:str, rating:int, comment:
           
 
 # Funzione per eliminare una recensione 
-def eliminazione_recensione(rider_id:int):
+def eliminazione_recensione(id:int):
     
     try:
-       riders = view_rider()
-       reviews = view_reviews()
-       if rider_id not in [rider[0] for rider in riders] and rider_id not in [review[1] for review in reviews]:
-            return jsonify({"Error:":"La recensione selezionata non esiste, inserisci un id valido."}), 400
-       else:
-            elimin_recensione(id)
-            return jsonify({"Message:":"Recensione eliminata con successo."}), 200
+       #riders = view_rider()
+       #reviews = view_reviews()
+       #if rider_id not in [rider['rider_id'] for rider in riders]:
+       #     return False
+       #else: 
+        return elimin_recensione(id)
             
     except ValueError:
+        print('ValueError')
         return jsonify({"Error:":"I dati inseriti non sono validi, assicurati di inserire un numero intero per id."}), 400
     except Exception as e:
-        return jsonify({"Error:":str(e)}), 
+        return jsonify({"Error:":str(e)}), 500
 
 # Funzione per la media delle recensioni di un rider, controlla l'esistenza del rider
 def media_recens(rider_id:int):
 
     try:
-        riders = view_rider()
-        if rider_id not in [rider[0] for rider in riders]:
-            return jsonify({'Error:':'Questo id rider non è presente'})
-        else:
-            return media_recensioni()
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                controllo = "SELECT id FROM riders WHERE id = %s"
+                cur.execute(controllo, (rider_id,))
+                querycontrollo = cur.fetchall()
+
+                if querycontrollo: 
+                    query = "SELECT AVG(rating) FROM reviews WHERE rider_id = %s GROUP BY rider_id"
+                    cur.execute(query, (rider_id,))
+                    result = cur.fetchall()
+                    conn.commit() 
+
+                    return jsonify(result), 200
+                else:
+                    return jsonify({'Error': 'ID selezionato non esiste'})
     except ValueError:
         return jsonify({"Error:":"I dati inseriti non sono validi, assicurati di inserire un numero intero per id."})
     except Exception as e:

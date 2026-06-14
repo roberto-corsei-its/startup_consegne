@@ -37,17 +37,16 @@ def aggiungi_recensione():
         
         if not data:
             return jsonify({"error": "Nessun dato JSON ricevuto nel body"}), 400
-        rider_id = data.get('rider_id')
-        customer_name = data.get('customer_name')
-        rating = data.get('rating')
-        comment = data.get('comment')
+        rider_id = int(data.get('rider_id'))
+        customer_name = str(data.get('customer_name'))
+        rating = int(data.get('rating'))
+        comment = str(data.get('comment'))
         if  not all([rider_id, customer_name, rating, comment]):
             return jsonify({"error": "Tutti i campi (rider_id, customer_name, rating, comment) sono obbligatori"}), 400
         elif rider_id <= 0 or rating < 1 or rating > 5:
             return jsonify({"error": "rider_id deve essere un intero positivo e rating deve essere compreso tra 1 e 5"}), 400
         else:
-            inserimento_recensione(rider_id, customer_name, rating, comment)
-            return jsonify({'message':'success'}), 200
+            return inserimento_recensione(rider_id, customer_name, rating, comment)
         
         
     except Exception as e:
@@ -58,10 +57,11 @@ def aggiungi_recensione():
 
 
 @consegne_bp.route('/delete/<id>', methods=['DELETE'])
-def cancellazione_recensione(id):
+def cancellazione_recensione(id:int):
 
-    eliminazione_recensione(id)
-    return jsonify({'message':'success'}), 200
+    return eliminazione_recensione(id)
+
+
     
 
 @consegne_bp.route('/media/<rider_id>', methods=['GET'])
