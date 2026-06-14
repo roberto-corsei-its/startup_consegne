@@ -1,8 +1,5 @@
-import numpy as np
 import pandas as pd
-from flask import Blueprint, request, jsonify
-import os
-import psycopg
+from flask import jsonify
 from data.scripts import get_connection
 import pandas as pd
 from src.utils import view_rider

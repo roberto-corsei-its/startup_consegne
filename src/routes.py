@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from handlers.handler_recensioni import inserimento_recensione, eliminazione_recensione, media_recens, view_reviews, update_comment
 from handlers.handler_consegne import visualizzazione_rider, visualizzazione_rider_veicoli
-
+from werkzeug.exceptions import MethodNotAllowed
 
 # Inizializzato il blueporint di consegne
 consegne_bp = Blueprint('consegne', __name__, url_prefix='/consegne')
@@ -11,9 +11,22 @@ consegne_bp = Blueprint('consegne', __name__, url_prefix='/consegne')
 #  per poi delegare il core delle funzionalità a funzioni presenti in handlers
 
 
+@consegne_bp.app_errorhandler(MethodNotAllowed)
+def handle_wrong_method(e):
+    return jsonify({
+        "Error": "Metodo non valido",
+        "Message": " Stai usando il metodo sbagliato.",
+        "Metodo_Valido": e.valid_methods })
+
+
+
+
 @consegne_bp.route('/riders', methods=['GET'])
 def riders():
     return jsonify(visualizzazione_rider())
+
+
+
 @consegne_bp.route('/riders/<vehicle>', methods=['GET'])
 def visualizzazione_riders(vehicle=None):
     if vehicle:

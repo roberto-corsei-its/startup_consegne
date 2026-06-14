@@ -3,7 +3,7 @@ from flask import Blueprint, request, jsonify
 import os
 #import psycopg
 from data.scripts import get_connection
-from src.utils import view_rider, inser_review, elimin_recensione, view_reviews, media_recensioni, update_comment
+from src.utils import view_rider, inser_review, elimin_recensione, view_reviews, update_comment
 
 
 
@@ -79,15 +79,9 @@ def visualizzazione_recensioni():
 
 # Funzione per aggiorare i commenti di una recensione, si usa PUT, controlla che ci sia una recensione con il rider_id indicato
 # Per poi controllare che il nome fornito esista
-def aggiornamento_commenti(id:int, comment:str, nome:str):
+def aggiornamento_commenti(id:int, comment:str):
     try:
-        reviews = view_reviews()
-        if id not in [review[0] for review in reviews]:
-            return jsonify({'Error:':'Questo id non è presente tra le recensioni.'})
-        elif nome not in[review[2] for review in reviews]:
-            return jsonify({'Error:':'Non è presente una recensione con questo nome'})
-        else:  
-            return update_comment(id, comment, nome)
+        return update_comment(id, comment)
     except ValueError:
         return jsonify({"Error:":"I dati inseriti non sono validi, assicurati di inserire un numero intero per id."})
     except Exception as e:

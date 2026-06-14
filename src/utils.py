@@ -1,8 +1,5 @@
-import numpy as np
 import pandas as pd
-from flask import Blueprint, request, jsonify
-import os
-import psycopg
+from flask import jsonify
 from data.scripts import get_connection
 
 
@@ -60,12 +57,12 @@ def elimin_recensione(id):
             else:
                 return jsonify({'Error': 'ID selezionato non esiste'})
 
-def update_comment(id, comment, nome):
+def update_comment(id, comment):
     with get_connection() as conn:
      with conn.cursor() as cur:
 
-      query = "UPDATE reviews SET comment = %s WHERE id = %s AND customer_name = %s"
+      query = "UPDATE reviews SET comment = %s WHERE id = %s"
 
-      cur.execute(query, (comment, id, nome))
+      cur.execute(query, (comment, id))
 
       conn.commit()
