@@ -90,7 +90,6 @@ def aggiornamento_commenti(id):
         if not data:
             return jsonify({"error": "Nessun dato JSON ricevuto nel body"}), 400
         comment = data.get('comment')
-        update_comment(id, comment)
-        return jsonify({'message':'success'}), 200
+        return update_comment(id, comment)
     except Exception as e:
         return jsonify({"error": str(e)}), 500

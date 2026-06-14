@@ -81,7 +81,16 @@ def visualizzazione_recensioni():
 # Per poi controllare che il nome fornito esista
 def aggiornamento_commenti(id:int, comment:str):
     try:
-        return update_comment(id, comment)
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                query = "SELECT id FROM reviews WHERE id = %s"
+                cur.exectue(query, (id,))
+                controllo = cur.fetchall()
+
+        if controllo:
+            return update_comment(id, comment)
+        else:
+            return jsonify({'Error:':'ID recensione non presente nel database'})
     except ValueError:
         return jsonify({"Error:":"I dati inseriti non sono validi, assicurati di inserire un numero intero per id."})
     except Exception as e:

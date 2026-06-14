@@ -4,7 +4,6 @@ from data.scripts import get_connection
 
 
 # In utils abbiamo aggiunto le funzioni che svolgono il core delle funzionalità (query, insert, ecc...)
-
 def inser_review(rider_id, customer_name, rating, comment):
     
     with get_connection() as conn:
@@ -15,7 +14,6 @@ def inser_review(rider_id, customer_name, rating, comment):
       cur.execute(query, (rider_id, customer_name, rating, comment))
 
       conn.commit()
-
 
 
 def view_rider():
@@ -60,9 +58,11 @@ def elimin_recensione(id):
 def update_comment(id, comment):
     with get_connection() as conn:
      with conn.cursor() as cur:
+        query = "UPDATE reviews SET comment = %s WHERE id = %s"
+        
 
-      query = "UPDATE reviews SET comment = %s WHERE id = %s"
+        cur.execute(query, (comment, id))
 
-      cur.execute(query, (comment, id))
+        conn.commit()
 
-      conn.commit()
+        return jsonify({'Message:':'Success'})
